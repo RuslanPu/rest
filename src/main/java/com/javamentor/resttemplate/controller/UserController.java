@@ -17,10 +17,10 @@ public class UserController {
 
     @RequestMapping(value = "/userPage", method = RequestMethod.GET)
     public String userPage(ModelMap model) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<Role> rolesUser = (List<Role>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-        user.setRoles(rolesUser);
-        model.addAttribute("user", user);
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        List<Role> rolesUser = (List<Role>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+//        user.setRoles(rolesUser);
+//        model.addAttribute("user", user);
         return "user/userPage";
 
     }

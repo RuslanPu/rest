@@ -3,6 +3,7 @@ package com.javamentor.resttemplate.controller;
 import com.javamentor.resttemplate.model.JsonObject;
 import com.javamentor.resttemplate.model.Role;
 import com.javamentor.resttemplate.model.User;
+import com.javamentor.resttemplate.service.RestTemplate;
 import com.javamentor.resttemplate.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,16 @@ import java.util.List;
 public class CrudController {
     @Autowired
     private UserService service;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @PostMapping("/userPage")
+    public ResponseEntity<JsonObject> getUserdata() {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.setUser(restTemplate.getUserAfterLogin());
+        return new ResponseEntity<JsonObject>(jsonObject, HttpStatus.OK);
+    }
 
     @GetMapping("/admin/add")
     public ResponseEntity<JsonObject> getRoles() {

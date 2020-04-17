@@ -7,12 +7,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>User page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="bg-dark d-flex flex-row align-content-center">
     <div class="bg-dark pt-2 pl-3">
-        <p class="text-light d-inline"><b th:text="${user.email}"></b> with roles:
-        <p th:each="role : ${user.roles}" th:text="${role.name}" class="text-light d-inline pr-1"></p></p>
+        <p class="text-light d-inline"><b ></b> with roles:
+        <p  class="text-light d-inline pr-1"></p></p>
     </div>
     <div class="bg-dark pt-2 pr-3 ml-auto">
         <p>
@@ -51,13 +52,13 @@
                             </thead>
                             <tbody>
                             <tr class="">
-                                <th scope="row" th:text="${user.id}"></th>
-                                <td th:text="${user.name}"></td>
-                                <td th:text="${user.lastName}"></td>
-                                <td th:text="${user.age}"></td>
-                                <td th:text="${user.email}"></td>
+                                <th scope="row" ></th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                                 <td>
-                                    <span th:each="role : ${user.roles}" th:text="${role.name}" class="pr-1"></span>
+                                    <span  class="pr-1"></span>
                                 </td>
                             </tr>
                             </tbody>
@@ -72,9 +73,7 @@
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/js/js/user.js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
