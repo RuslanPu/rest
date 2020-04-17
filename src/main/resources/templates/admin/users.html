@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Admin panel</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="bg-dark d-flex flex-row align-content-center">
+    <div class="bg-dark pt-2 pl-3">
+        <p class="text-light d-inline"><b th:text="${user.email}"></b> with roles:
+        <p th:each="role : ${user.roles}" th:text="${role.name}" class="text-light d-inline pr-1"></p></p>
+    </div>
+    <div class="bg-dark pt-2 pr-3 ml-auto">
+        <p>
+            <a th:href="@{/perform_logout}" class="text-secondary">Logout</a>
+        </p>
+    </div>
+</div>
+<div class="row p-0 m-0">
+    <div class="col-2 pt-3 pr-0 pl-0">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-admin-tab" data-toggle="pill" role="tab"
+               aria-controls="v-pills-admin" aria-selected="true">Admin</a>
+            <a class="nav-link text-primary" th:href="@{/user/userPage}">User</a>
+        </div>
+    </div>
+    <div class="col-10 pt-3 bg-light pr-0">
+        <h1 class="pl-3">Admin panel</h1>
+        <div class="tab-content " id="v-pills-tabContent ">
+            <div class="tab-pane fade show active pl-2 pr-3" id="v-pills-home" role="tabpanel"
+                 aria-labelledby="v-pills-home-tab">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                           aria-controls="home" aria-selected="true">User table</a>
+                    </li>
+                    <li class="nav-item" id="afterAdd">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                           aria-controls="profile" aria-selected="false">New User</a>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+                        <div class="border bg-white">
+                            <div class="border-bottom pl-3 p-2 bg-light font-weight-bolder">All user</div>
+                            <div class="p-3">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr class="font-weight-bolder">
+                                        <th scope="col">ID</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Age</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Edit</th>
+                                        <th scope="col">Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="user : ${userList}">
+                                        <th scope="row" th:text="${user.id}"></th>
+                                        <td th:text="${user.name}"></td>
+                                        <td th:text="${user.lastName}"></td>
+                                        <td th:text="${user.age}"></td>
+                                        <td th:text="${user.email}"></td>
+                                        <td>
+                                                <span th:each="role : ${user.roles}" th:text="${role.name}"
+                                                      class="pr-1"></span>
+                                        </td>
+                                        <td>
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="buttonEdit btn btn-info" data-toggle="modal"
+                                                    data-target="#exampleModal" th:data="${user.id}">
+                                                Edit
+                                            </button>
+
+
+                                        </td>
+                                        <td>
+                                            <!--                                            <a th:href="@{/admin/delete/{id}(id = ${user.id})}">Delete</a>-->
+
+                                            <button type="button" class="buttonDelete btn btn-danger"
+                                                    data-toggle="modal" data-target="#exampleModal1"
+                                                    th:data="${user.id}">
+                                                Delete
+                                            </button>
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+                        <div class="border bg-white">
+                            <div class="border-bottom pl-3 p-2 bg-light font-weight-bolder">Add new user</div>
+                            <div class="row">
+
+
+                                <div class="col-4"></div>
+                                <div class="col-4">
+                                    <form method="post" th:action="@{/admin/add}"
+                                          class="add form-signin pt-md-5 mx-auto">
+
+                                        <input type="hidden" th:name="id" th:value="${user.id}">
+
+
+                                        <div class="form-group">
+                                            <p class="text-center font-weight-bolder p-0 mb-1 mt-1">First name</p>
+                                            <input
+                                                    type="text"
+                                                    class="form-control bg-warning"
+                                                    th:name="name"
+                                                    autofocus="autofocus"
+                                                    placeholder="First name"
+                                                    required
+                                            >
+                                        </div>
+                                        <div class="form-group">
+                                            <p class="text-center font-weight-bolder p-0 mb-1 mt-1">Last name</p>
+                                            <input
+                                                    type="text"
+                                                    class="form-control bg-warning"
+                                                    th:name="lastName"
+                                                    autofocus="autofocus"
+                                                    placeholder="Last name"
+                                                    required
+                                            >
+                                        </div>
+                                        <div class="form-group">
+                                            <p class="text-center font-weight-bolder p-0 mb-1 mt-1">Age</p>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    th:name="age"
+                                                    autofocus="autofocus"
+                                                    placeholder="Age"
+                                                    required
+                                            >
+                                        </div>
+                                        <div class="form-group">
+                                            <p class="text-center font-weight-bolder p-0 mb-1 mt-1">Email</p>
+                                            <input
+                                                    type="email"
+                                                    class="form-control bg-warning"
+                                                    th:name="email"
+                                                    autofocus="autofocus"
+                                                    placeholder="Email"
+                                                    required
+                                            >
+                                        </div>
+
+                                        <div class="form-group">
+                                            <p class="text-center font-weight-bolder p-0 mb-1 mt-1">Password</p>
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    th:name="password"
+                                                    autofocus="autofocus"
+                                                    placeholder="Password"
+                                                    required
+                                            >
+                                        </div>
+                                        <div class="form-group">
+                                            <p class="text-center font-weight-bolder p-0 mb-1 mt-1">Role</p>
+                                            <select th:name="checkboxRole" multiple class="roles form-control"
+                                                    id="exampleFormControlSelect2" style="height: 60px">
+                                                <!--                                                <option th:each="role : ${listRoles}"  th:value="${role.name}" th:text="${role.name}"></option>-->
+
+                                            </select>
+                                        </div>
+
+                                        <button type="button"
+                                                class="buttonAddUser btn btn-lg btn-success btn-block mb-3 mt-1 mx-auto"
+                                                style="width: 200px">Add new user
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <div class="col-4"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit user</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" th:action="@{/admin/edit}" class="edit form-signin pt-md-1">
+                    <div class="row">
+
+                        <div class="mx-auto">
+                            <div class="form-group">
+                                <p class="text-center font-weight-bolder p-0 mb-1 mt-1">
+                                    ID</p>
+                                <input class="id form-control"
+                                       name="id"
+                                       readonly>
+                            </div>
+
+
+                            <div class="form-group">
+                                <p class="text-center font-weight-bolder p-0 mb-1 mt-1">
+                                    First name</p>
+                                <input
+                                        type="text"
+                                        class="name form-control"
+                                        name="name"
+                                        autofocus="autofocus"
+                                        placeholder="First name"
+                                        required
+
+                                >
+                            </div>
+                            <div class="form-group">
+                                <p class="text-center font-weight-bolder p-0 mb-1 mt-1">
+                                    Last name</p>
+                                <input
+                                        type="text"
+                                        class="lastName form-control"
+                                        name="lastName"
+                                        autofocus="autofocus"
+                                        placeholder="Last name"
+                                        required
+                                >
+                            </div>
+                            <div class="form-group">
+                                <p class="text-center font-weight-bolder p-0 mb-1 mt-1">
+                                    Age</p>
+                                <input
+                                        type="text"
+                                        class="age form-control"
+                                        name="age"
+                                        autofocus="autofocus"
+                                        placeholder="Age"
+                                        required
+                                >
+                            </div>
+                            <div class="form-group">
+                                <p class="text-center font-weight-bolder p-0 mb-1 mt-1">
+                                    Email</p>
+                                <input
+                                        type="email"
+                                        class="email form-control"
+                                        name="email"
+                                        autofocus="autofocus"
+                                        placeholder="Email"
+                                        required
+                                >
+                            </div>
+
+                            <div class="form-group">
+                                <p class="text-center font-weight-bolder p-0 mb-1 mt-1">
+                                    Password</p>
+                                <input
+                                        type="text"
+                                        class="password form-control"
+                                        name="password"
+                                        autofocus="autofocus"
+                                        placeholder="Password"
+                                        required
+                                >
+                            </div>
+                            <div class="form-group">
+                                <p class="text-center font-weight-bolder p-0 mb-1 mt-1">
+                                    Role</p>
+                                <select th:name="checkboxRole" multiple
+                                        class="roles form-control"
+                                        id="exampleFormControlSelect3"
+                                        style="height: 60px">
+
+
+                                </select>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary mx-2" id="editSubmit">Edit</button>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModal1Label">Delete User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="get" th:action="@{/admin/delete/{id}(id = ${user.id})}" class="form-signin pt-md-1">
+                    <div class="d-flex justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                        <button type="button" class="buttonAfterDelete btn btn-danger ml-2">Delete</button>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/js/main.js}" src="/js/js/main.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

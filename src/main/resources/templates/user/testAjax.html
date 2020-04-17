@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Test js</title>
+</head>
+<header>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- JQuery library -->
+</header>
+<body>
+<form action="post" class="test">
+    <div class="error"></div>
+
+    <input type="text" name="name">
+    <input type="text" name="email">
+    <div class="form-group">
+        <p class="text-center font-weight-bolder p-0 mb-1 mt-1">
+            Role</p>
+        <select th:name="checkboxRole" multiple
+                class="choose form-control"
+                style="height: 60px">
+            <option value="1">1</option>
+            <option value="1">2</option>
+        </select>
+    </div>
+    <button type="button" id="editSubmit1">Send</button>
+</form>
+
+<table class="table">
+    <tr>
+        <td id="td">2</td>
+        <td>4</td>
+        <td>6</td>
+    </tr>
+</table>
+<button type="button" id="testChange">testchange</button>
+
+<!-- Button trigger modal -->
+<button type="button" id="test" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-id="82">
+    Test js
+</button>
+<script type="text/javascript">
+    $('#testChange').click(function () {
+        alert("work");
+        var text = 4;
+
+        var element = $('.table td').filter(function () {
+            return $(this).text() == text;
+        }).parent().remove();
+
+    });
+    var globalDataUser;
+
+    function checkOption(arr) {
+        var i = 0;
+        $(arr).each(function () {
+            if ($(this).prop('selected') == true) {
+                i++
+            }
+        });
+        if (i == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function getUserById(id) {
+        $.ajax({
+            url: '/user/requestById',
+            datatype: 'json',
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify({
+                id: id
+            }),
+            success: function (data) {
+                console.log(data);
+                globalDataUser = data.user;
+                $(".edit .name").attr("value", data.user.name);
+                $(".edit .id").attr("value", data.user.id);
+                $(".edit .password").attr("value", data.user.password);
+                var objSelect = $(".edit .roles");
+
+                $.each(data.allRoles, function (key, value) {
+                    $(objSelect).append($("<option></option>", {value: value.name, text: value.name}));
+                });
+
+
+                $.each(data.user.roles, function (index, value) {
+                    selected($(".roles option"), value.name);
+                })
+
+            }
+        });
+
+        function selected(arr, value) {
+            $(arr).each(function () {
+                if ($(this).val() == value) { // EDITED THIS LINE
+                    $(this).attr("selected", "selected");
+                }
+            });
+        }
+    }
+
+    function unicEmail(email) {
+        //function which send ajax request to the server
+        $.ajax({
+            url: '/user/checkEmail',
+            datatype: 'json',
+            type: "post",
+            contentType: "application/json",
+            data: JSON.stringify({
+                email: email
+            }),
+            success: function (data) {
+                console.log(data);
+                return data.unicEmail;
+            }
+        });
+    }
+
+    //valid data field
+    $('#editSubmit1').click(function () {
+        arr = $(".choose option");
+        var name = $(".test input[name='name']").val();
+        var email = $(".test input[name='email']").val();
+
+        if (unicEmail(email)) {
+            $(".error").text("Not unic");
+        } else {
+
+        }
+
+        if (!checkOption(arr)) {
+            $(".error").text("Choose role");
+        }
+
+    });
+    //get id
+    $('#test').click(function () {
+        var id = $("#test").attr('data-id');
+        getUserById(id);
+    });
+
+</script>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form action="post" class="form-signin pt-md-5 mx-auto edit">
+                        <div class="form-group">
+                            <p class="text-center font-weight-bolder p-0 mb-1 mt-1">ID</p>
+                            <input
+                                    type="text"
+                                    class="id form-control bg-warning"
+                                    th:name="id"
+                                    autofocus="autofocus"
+                                    placeholder="First name"
+                                    readonly
+                            >
+                        </div>
+                        <div class="form-group">
+                            <p class="text-center font-weight-bolder p-0 mb-1 mt-1">name</p>
+                            <input
+                                    type="text"
+                                    class="name form-control bg-warning"
+                                    th:name="name"
+                                    autofocus="autofocus"
+                                    placeholder="First name"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <p class="text-center font-weight-bolder p-0 mb-1 mt-1">Password</p>
+                            <input
+                                    type="text"
+                                    class="password form-control bg-warning"
+                                    th:name="password"
+                                    autofocus="autofocus"
+                                    placeholder="First name"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <p class="text-center font-weight-bolder p-0 mb-1 mt-1">
+                                Role</p>
+                            <select th:name="checkboxRole" multiple
+                                    class="roles form-control"
+                                    id="exampleFormControlSelect3"
+                                    style="height: 60px">
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="editSubmit">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
