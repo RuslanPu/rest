@@ -25,19 +25,19 @@ public class AdminController {
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public ModelAndView mainPage() {
-        List<Role> listRoles = service.getAllRole();
-
-
-        List<User> users = service.getAllUser();
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<Role> rolesUser = (List<Role>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-        user.setRoles(rolesUser);
-
+//        List<Role> listRoles = service.getAllRole();
+//
+//
+//        List<User> users = service.getAllUser();
+//        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        List<Role> rolesUser = (List<Role>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+//        user.setRoles(rolesUser);
+//
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("admin/users");
-        modelAndView.addObject("user", user);
-        modelAndView.addObject("userList", users);
-        modelAndView.addObject("listRoles", listRoles);
+//        modelAndView.addObject("user", user);
+//        modelAndView.addObject("userList", users);
+//        modelAndView.addObject("listRoles", listRoles);
 
         return modelAndView;
     }

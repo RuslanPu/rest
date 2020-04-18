@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -23,11 +24,10 @@ public class CrudController {
     private RestTemplateImpl restTemplate;
 
     @GetMapping("/user/getUserAfterLogin")
-    public ResponseEntity<JsonObject> getUserdata() {
+    public ResponseEntity<JsonObject> getUserdata(Principal principal) {
         JsonObject jsonObject = new JsonObject();
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Long id = user.getId();
-        jsonObject.setUser(restTemplate.getUserAfterLogin(id));
+        String email = principal.getName();
+        jsonObject.setUser(restTemplate.getUserAfterLogin(email));
         return new ResponseEntity<JsonObject>(jsonObject, HttpStatus.OK);
 
     }

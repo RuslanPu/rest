@@ -14,12 +14,11 @@ import java.util.List;
 @Service
 public class RestTemplateImpl extends RestTemplate {
 
-    public User getUserAfterLogin(Long id) {
+    public User getUserAfterLogin(String email) {
 
-        final String uri = "http://localhost:8081/user/getUser/{id}";
-//        String strId = id.toString();
+        final String uri = "http://localhost:8081/user/getUser/{email}";
         RestTemplate restTemplate = new RestTemplate();
-        User user = restTemplate.getForObject(uri, User.class, id);
+        User user = restTemplate.getForObject(uri, User.class, email);
 
         return user;
     }

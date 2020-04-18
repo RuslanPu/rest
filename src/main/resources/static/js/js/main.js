@@ -15,7 +15,7 @@ $('#afterAdd').click(function () {
             });
         }
     });
-})
+});
 
 
 $('.buttonAddUser').click(function () {
@@ -52,7 +52,7 @@ $('.buttonAddUser').click(function () {
         }
     });
 
-})
+});
 
 
 $('.buttonAfterDelete').click(function () {

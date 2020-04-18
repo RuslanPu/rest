@@ -17,10 +17,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Qualifier("userDetailsServiceImp")
-//    @Autowired
-//    UserDetailsService userDetailsService;
-
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication().withUser("user@mail.ru").password("user").roles("USER");
@@ -66,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").anonymous()
                 // защищенные URL
                 .antMatchers("/home").access("hasRole('USER') or hasRole('ADMIN')")
-                .antMatchers("/userPage/** ").access("hasRole('USER')")
+                .antMatchers("/user/** ").access("hasRole('USER')")
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .anyRequest().authenticated()
                 .and()
