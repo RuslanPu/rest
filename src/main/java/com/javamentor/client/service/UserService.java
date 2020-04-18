@@ -1,7 +1,7 @@
-package com.javamentor.resttemplate.service;
+package com.javamentor.client.service;
 
-import com.javamentor.resttemplate.model.Role;
-import com.javamentor.resttemplate.model.User;
+import com.javamentor.client.model.Role;
+import com.javamentor.client.model.User;
 
 import java.util.List;
 

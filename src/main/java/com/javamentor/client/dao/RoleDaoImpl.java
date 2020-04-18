@@ -1,6 +1,6 @@
-package com.javamentor.resttemplate.dao;
+package com.javamentor.client.dao;
 
-import com.javamentor.resttemplate.model.Role;
+import com.javamentor.client.model.Role;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

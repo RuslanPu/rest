@@ -1,4 +1,4 @@
-package com.javamentor.resttemplate.config;
+package com.javamentor.client.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -65,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").anonymous()
                 // защищенные URL
                 .antMatchers("/home").access("hasRole('USER') or hasRole('ADMIN')")
-                .antMatchers("/user/** ").access("hasRole('USER')")
+                .antMatchers("/userPage/** ").access("hasRole('USER')")
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .anyRequest().authenticated()
                 .and()

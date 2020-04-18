@@ -1,7 +1,7 @@
-package com.javamentor.resttemplate.service;
+package com.javamentor.client.service;
 
-import com.javamentor.resttemplate.dao.UserDetailsDao;
-import com.javamentor.resttemplate.model.User;
+import com.javamentor.client.dao.UserDetailsDao;
+import com.javamentor.client.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;

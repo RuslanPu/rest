@@ -1,7 +1,7 @@
-package com.javamentor.resttemplate.dao;
+package com.javamentor.client.dao;
 
 
-import com.javamentor.resttemplate.model.User;
+import com.javamentor.client.model.User;
 
 import java.util.List;
 

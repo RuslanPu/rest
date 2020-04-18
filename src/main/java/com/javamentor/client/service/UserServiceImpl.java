@@ -1,9 +1,9 @@
-package com.javamentor.resttemplate.service;
+package com.javamentor.client.service;
 
-import com.javamentor.resttemplate.dao.RoleDao;
-import com.javamentor.resttemplate.dao.UserDAO;
-import com.javamentor.resttemplate.model.Role;
-import com.javamentor.resttemplate.model.User;
+import com.javamentor.client.dao.RoleDao;
+import com.javamentor.client.dao.UserDAO;
+import com.javamentor.client.model.Role;
+import com.javamentor.client.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

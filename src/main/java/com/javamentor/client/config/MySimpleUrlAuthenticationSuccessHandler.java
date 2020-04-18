@@ -1,4 +1,4 @@
-package com.javamentor.resttemplate.config;
+package com.javamentor.client.config;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

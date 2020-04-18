@@ -1,4 +1,4 @@
-package com.javamentor.resttemplate.model;
+package com.javamentor.client.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

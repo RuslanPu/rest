@@ -1,8 +1,8 @@
-package com.javamentor.resttemplate.controller;
+package com.javamentor.client.controller;
 
-import com.javamentor.resttemplate.model.Role;
-import com.javamentor.resttemplate.model.User;
-import com.javamentor.resttemplate.service.UserService;
+import com.javamentor.client.model.Role;
+import com.javamentor.client.model.User;
+import com.javamentor.client.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;

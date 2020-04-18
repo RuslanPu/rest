@@ -1,4 +1,4 @@
-package com.javamentor.resttemplate.controller;
+package com.javamentor.client.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

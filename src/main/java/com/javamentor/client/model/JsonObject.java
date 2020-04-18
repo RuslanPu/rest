@@ -1,4 +1,4 @@
-package com.javamentor.resttemplate.model;
+package com.javamentor.client.model;
 
 import java.util.List;
 import java.util.Objects;

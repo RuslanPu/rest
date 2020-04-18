@@ -1,7 +1,7 @@
 $.ajax({
-    url: '/userPage',
+    url: '/user/getUserAfterLogin',
     datatype: 'json',
-    type: 'post',
+    type: 'get',
     contenntType: 'application/json',
     data: JSON,
     success: function (data) {
