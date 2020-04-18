@@ -17,13 +17,14 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Qualifier("userDetailsServiceImp")
-    @Autowired
-    UserDetailsService userDetailsService;
+//    @Qualifier("userDetailsServiceImp")
+//    @Autowired
+//    UserDetailsService userDetailsService;
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.inMemoryAuthentication().withUser("user@mail.ru").password("user").roles("USER");
+        auth.inMemoryAuthentication().withUser("admin@mail.ru").password("admin").roles("ADMIN");
     }
 
     @Bean
