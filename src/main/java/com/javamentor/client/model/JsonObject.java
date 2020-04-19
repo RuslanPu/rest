@@ -7,6 +7,15 @@ public class JsonObject {
     private User user;
     private List<Role> allRoles;
     private boolean unicEmail;
+    private List<User> listUsers;
+
+    public List<User> getListUsers() {
+        return listUsers;
+    }
+
+    public void setListUsers(List<User> listUsers) {
+        this.listUsers = listUsers;
+    }
 
     public boolean isUnicEmail() {
         return unicEmail;

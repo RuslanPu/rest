@@ -1,3 +1,14 @@
+$.ajax({
+   url:'/admin/getUsersAfterLogin',
+   datatype: 'json',
+   type: 'get',
+   contentType: 'application/json',
+   data: JSON,
+   success: function(data) {
+       console.log(data);
+   }
+});
+
 $('#afterAdd').click(function () {
     $('.add .roles').find('option').remove();
     $.ajax({

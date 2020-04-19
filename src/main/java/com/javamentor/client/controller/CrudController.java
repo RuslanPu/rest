@@ -23,6 +23,14 @@ public class CrudController {
     @Autowired
     private RestTemplateImpl restTemplate;
 
+    @GetMapping("/admin/getUsersAfterLogin")
+    public ResponseEntity<JsonObject> getAdminData(Principal principal) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.setUser(restTemplate.getUserAfterLogin(principal.getName()));
+        jsonObject.setListUsers(restTemplate.getUsersList());
+        return new ResponseEntity<JsonObject>(jsonObject, HttpStatus.OK);
+    }
+
     @GetMapping("/user/getUserAfterLogin")
     public ResponseEntity<JsonObject> getUserdata(Principal principal) {
         JsonObject jsonObject = new JsonObject();

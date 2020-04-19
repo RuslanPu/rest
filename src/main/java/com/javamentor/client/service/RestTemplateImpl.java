@@ -23,4 +23,12 @@ public class RestTemplateImpl extends RestTemplate {
         return user;
     }
 
+    public List<User> getUsersList() {
+        String uri = "http://localhost:8081/admin/getUserList";
+        RestTemplate restTemplate = new RestTemplate();
+        JsonObject jsonObject = restTemplate.getForObject(uri, JsonObject.class);
+
+        return jsonObject.getListUsers();
+    }
+
 }
