@@ -1,3 +1,4 @@
+
 $.ajax({
    url:'/admin/getUsersAfterLogin',
    datatype: 'json',
@@ -6,6 +7,11 @@ $.ajax({
    data: JSON,
    success: function(data) {
        console.log(data);
+       $("#emailUser b").text(data.user.email);
+       $.each(data.user.roles, function(key, value){
+           $("tbody .roles").append($("<span></span>", {text: value.name, class: "pr-1"}));
+           $("#userRoles").append($("<span></span>", {text: value.name, class:"mr-1"}));
+       });
    }
 });
 
