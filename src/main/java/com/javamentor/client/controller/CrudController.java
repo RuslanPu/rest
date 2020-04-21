@@ -61,6 +61,19 @@ public class CrudController {
         return new ResponseEntity<JsonObject>(jsonObject, HttpStatus.OK);
     }
 
+    @PostMapping("/admin/updateUser")
+    public ResponseEntity<JsonObject> updateUser(@RequestBody User user) {
+        System.out.println(user.getRoles());
+        String[] roles = new String[user.getRoles().size()];
+        for (int i = 0; i < user.getRoles().size(); i++) {
+            roles[i] = user.getRoles().get(i).getName();
+        }
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.setUpdateUser(restTemplate.editUser(user, roles));
+        return new ResponseEntity<JsonObject>(jsonObject, HttpStatus.OK);
+
+    }
+
 
     @PostMapping("/admin/delete")
     public String deleteUser(@RequestBody User user) {
@@ -81,16 +94,7 @@ public class CrudController {
         return "add";
     }
 
-    @PostMapping("/admin/updateUser")
-    public String updateUser(@RequestBody User user) {
-        System.out.println(user.getRoles());
-        String[] roles = new String[user.getRoles().size()];
-        for (int i = 0; i < user.getRoles().size(); i++) {
-            roles[i] = user.getRoles().get(i).getName();
-        }
-        service.edit(user, roles);
-        return "update";
-    }
+
 
     @PostMapping("/user/checkEmail")
     public ResponseEntity<JsonObject> checkEmail(@RequestBody User user) {

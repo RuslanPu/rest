@@ -4,7 +4,9 @@ import com.javamentor.client.model.JsonObject;
 import com.javamentor.client.model.Role;
 import com.javamentor.client.model.User;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -37,11 +39,22 @@ public class RestTemplateImpl extends RestTemplate {
         return user;
     }
 
-    public List<Role> getAllRoles(){
-        String uri = "http://localhost:8081/admin/getAllRole";
+
+
+    public String editUser(User user, String[] roles) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.setCurrentSelectedRolesForAdd(roles);
+        jsonObject.setCurrentUserForAdd(user);
+
+
+        String uri = "http://localhost:8081/admin/editUser";
+
         RestTemplate restTemplate = new RestTemplate();
-        JsonObject jsonObject = restTemplate.getForObject(uri, JsonObject.class);
-        return jsonObject.getAllRoles();
+        restTemplate.postForEntity(uri, jsonObject, String.class);
+
+
+
+        return "good";
     }
 
 }

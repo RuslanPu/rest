@@ -8,6 +8,33 @@ public class JsonObject {
     private List<Role> allRoles;
     private boolean unicEmail;
     private List<User> listUsers;
+    private User currentUserForAdd;
+    private String[] currentSelectedRolesForAdd;
+    private String updateUser;
+
+    public String getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+    }
+
+    public User getCurrentUserForAdd() {
+        return currentUserForAdd;
+    }
+
+    public void setCurrentUserForAdd(User currentUserForAdd) {
+        this.currentUserForAdd = currentUserForAdd;
+    }
+
+    public String[] getCurrentSelectedRolesForAdd() {
+        return currentSelectedRolesForAdd;
+    }
+
+    public void setCurrentSelectedRolesForAdd(String[] currentSelectedRolesForAdd) {
+        this.currentSelectedRolesForAdd = currentSelectedRolesForAdd;
+    }
 
     public List<User> getListUsers() {
         return listUsers;
