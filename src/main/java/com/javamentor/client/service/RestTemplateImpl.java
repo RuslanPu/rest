@@ -30,5 +30,18 @@ public class RestTemplateImpl extends RestTemplate {
 
         return jsonObject.getListUsers();
     }
+    public User getUserById(Long id) {
+        String uri = "http://localhost:8081/admin/getUser/{id}";
+        RestTemplate restTemplate = new RestTemplate();
+        User user = restTemplate.getForObject(uri, User.class, id);
+        return user;
+    }
+
+    public List<Role> getAllRoles(){
+        String uri = "http://localhost:8081/admin/getAllRole";
+        RestTemplate restTemplate = new RestTemplate();
+        JsonObject jsonObject = restTemplate.getForObject(uri, JsonObject.class);
+        return jsonObject.getAllRoles();
+    }
 
 }

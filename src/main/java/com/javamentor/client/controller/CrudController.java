@@ -49,10 +49,10 @@ public class CrudController {
         return new ResponseEntity<JsonObject>(jsonObject, HttpStatus.OK);
     }
 
-    @PostMapping("/user/requestById")
+    @PostMapping("/admin/requestById")
     public ResponseEntity<JsonObject> getUserById(@RequestBody User user) {
         Long id = user.getId();
-        User userById = service.getUserById(id);
+        User userById = restTemplate.getUserById(id);
         List<Role> allRoles = service.getAllRole();
         JsonObject jsonObject = new JsonObject();
         jsonObject.setUser(userById);

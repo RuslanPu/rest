@@ -16,7 +16,7 @@ $.ajax({
        $(table).find('tr').remove();
        for (i = 0; i < data.listUsers.length; i++) {
            var str = '<tr>';
-           str += '<td>' + data.listUsers[i].id + '</td>';
+           str += '<th class="row">' + data.listUsers[i].id + '</th>';
            str += '<td>' + data.listUsers[i].name + '</td>';
            str += '<td>' + data.listUsers[i].lastName + '</td>';
            str += '<td>' + data.listUsers[i].age + '</td>';
@@ -28,7 +28,7 @@ $.ajax({
            role += '</td>';
            str += role;
            str += '<td><button type="button" class="buttonEdit btn btn-info" data-toggle="modal" data-target="#exampleModal" data="'+ data.listUsers[i].id +'">Edit</button></td>';
-           str += '<td><button type="button" class="buttonDelete btn btn-danger" data-toggle="modal" data-target="#exampleModal1" data="'+ data.listUsers[i].id +'">Delete</button></td>'
+           str += '<td><button type="button" class="buttonDelete btn btn-danger" data-toggle="modal" data-target="#exampleModal1" data="'+ data.listUsers[i].id +'">Delete</button></td>';
            str+='</tr>';
            table.append(str);
        }
@@ -142,47 +142,7 @@ function checkOption(arr) {
     }
 }
 
-function getUserById(id) {
-    $.ajax({
-        url: '/user/requestById',
-        datatype: 'json',
-        type: "post",
-        contentType: "application/json",
-        data: JSON.stringify({
-            id: id
-        }),
-        success: function (data) {
-            console.log(data);
-            $(".edit .name").attr("value", data.user.name);
-            $(".edit .id").attr("value", data.user.id);
-            $(".edit .lastName").attr("value", data.user.lastName);
-            $(".edit .age").attr("value", data.user.age);
-            $(".edit .password").attr("value", data.user.password);
-            $(".edit .email").attr("value", data.user.email);
-            var objSelect = $(".edit .roles");
 
-            $.each(data.allRoles, function (key, value) {
-                $(objSelect).append($("<option></option>", {value: value.name, text: value.name}));
-            });
-
-
-            $.each(data.user.roles, function (index, value) {
-                selected($(".roles option"), value.name);
-            });
-
-
-        }
-    });
-
-    function selected(arr, value) {
-        $(arr).each(function () {
-            if ($(this).val() == value) { // EDITED THIS LINE
-                $(this).attr("selected", "selected");
-            }
-        });
-    }
-
-}
 
 
 function unicEmail(email) {
@@ -292,8 +252,3 @@ $('#editSubmit').click(function () {
 
 });
 // get id
-$('.buttonEdit').click(function () {
-    $('.roles').find('option').remove();
-    var id = $(this).attr('data');
-    getUserById(id);
-});
