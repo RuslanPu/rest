@@ -53,7 +53,7 @@ public class CrudController {
     public ResponseEntity<JsonObject> getUserById(@RequestBody User user) {
         Long id = user.getId();
         User userById = restTemplate.getUserById(id);
-        List<Role> allRoles = service.getAllRole();
+        List<Role> allRoles = restTemplate.getAllRoles();
         JsonObject jsonObject = new JsonObject();
         jsonObject.setUser(userById);
         jsonObject.setAllRoles(allRoles);

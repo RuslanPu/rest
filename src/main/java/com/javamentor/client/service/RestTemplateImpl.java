@@ -3,10 +3,7 @@ package com.javamentor.client.service;
 import com.javamentor.client.model.JsonObject;
 import com.javamentor.client.model.Role;
 import com.javamentor.client.model.User;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -23,6 +20,13 @@ public class RestTemplateImpl extends RestTemplate {
         User user = restTemplate.getForObject(uri, User.class, email);
 
         return user;
+    }
+
+    public List<Role> getAllRoles(){
+        String uri = "http://localhost:8081/admin/getAllRole";
+        RestTemplate restTemplate = new RestTemplate();
+        JsonObject jsonObject = restTemplate.getForObject(uri, JsonObject.class);
+        return jsonObject.getAllRoles();
     }
 
     public List<User> getUsersList() {
@@ -51,9 +55,6 @@ public class RestTemplateImpl extends RestTemplate {
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.postForEntity(uri, jsonObject, String.class);
-
-
-
         return "good";
     }
 

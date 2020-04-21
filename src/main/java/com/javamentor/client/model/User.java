@@ -9,35 +9,23 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
-@Table(name = "users")
-public class User implements UserDetails {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
+public class User {
+
     private Long id;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "lastName")
     private String lastName;
 
-    @Column(name = "age")
     private Integer age;
 
-    @Column(name = "password")
     private String password;
 
-    @Column(name = "email", unique = true)
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "user_role",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")}
-    )
+
     private List<Role> roles = new ArrayList<>();
 
     public List<Role> getRoles() {
@@ -60,40 +48,6 @@ public class User implements UserDetails {
         this.name = name;
     }
 
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return name;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -187,5 +141,9 @@ public class User implements UserDetails {
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
