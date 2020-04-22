@@ -91,32 +91,6 @@ $('.buttonAddUser').click(function () {
 
 });
 
-
-$('.buttonAfterDelete').click(function () {
-    var id = $('.buttonDelete').attr('data');
-    $.ajax({
-        url: '/admin/delete',
-        datatype: 'json',
-        type: "post",
-        contentType: "application/json",
-        data: JSON.stringify({
-            id: id
-        }),
-        success: function (data) {
-            console.log(data);
-            var elementStrinTableByID = $('tbody th').filter(function () {
-                return $(this).text() == id;
-            }).parent().remove();
-            $('#exampleModal1').modal('hide');
-
-        }
-    });
-});
-
-
-
-
-
 function addCheckRoleInUserRoles(arr) {
     var arr1 = new Array();
     $(arr).each(function (index, value) {
@@ -142,9 +116,6 @@ function checkOption(arr) {
     }
 }
 
-
-
-
 function unicEmail(email) {
     //function which send ajax request to the server
     $.ajax({
@@ -162,6 +133,3 @@ function unicEmail(email) {
     });
 }
 
-// valid data field
-
-// get id

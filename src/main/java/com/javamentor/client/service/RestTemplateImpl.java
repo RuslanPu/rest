@@ -3,8 +3,6 @@ package com.javamentor.client.service;
 import com.javamentor.client.model.JsonObject;
 import com.javamentor.client.model.Role;
 import com.javamentor.client.model.User;
-import org.springframework.http.*;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,6 +10,12 @@ import java.util.List;
 
 @Service
 public class RestTemplateImpl extends RestTemplate {
+
+    public String deleteUserById(Long id) {
+        final String uri = "http://localhost:8081/admin/deleteUser/{id}";
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject(uri, String.class, id);
+    }
 
     public User getUserAfterLogin(String email) {
 
@@ -47,8 +51,8 @@ public class RestTemplateImpl extends RestTemplate {
 
     public String editUser(User user, String[] roles) {
         JsonObject jsonObject = new JsonObject();
-        jsonObject.setCurrentSelectedRolesForAdd(roles);
-        jsonObject.setCurrentUserForAdd(user);
+        jsonObject.setCurrentSelectedRolesForEdit(roles);
+        jsonObject.setCurrentUserForEdit(user);
 
 
         String uri = "http://localhost:8081/admin/editUser";

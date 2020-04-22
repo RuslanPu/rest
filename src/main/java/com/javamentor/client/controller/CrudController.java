@@ -79,9 +79,7 @@ public class CrudController {
     public String deleteUser(@RequestBody User user) {
         Long id = user.getId();
         System.out.println(id);
-        User userDeleted = service.getUserById(id);
-        service.delete(userDeleted);
-        return "delete";
+        return restTemplate.deleteUserById(id);
     }
 
     @PostMapping("/admin/add")
@@ -98,9 +96,7 @@ public class CrudController {
 
     @PostMapping("/user/checkEmail")
     public ResponseEntity<JsonObject> checkEmail(@RequestBody User user) {
-//        Long id = user.getId();
         String email = user.getEmail();
-//        User userById = service.getUserById(id);
         boolean unicEmail;
         if (!service.unicEmail(email)) {
             unicEmail = false;
