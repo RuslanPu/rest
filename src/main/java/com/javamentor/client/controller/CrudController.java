@@ -44,7 +44,7 @@ public class CrudController {
     public ResponseEntity<JsonObject> getRoles() {
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.setAllRoles(service.getAllRole());
+        jsonObject.setAllRoles(restTemplate.getAllRoles());
 
         return new ResponseEntity<JsonObject>(jsonObject, HttpStatus.OK);
     }
@@ -85,10 +85,11 @@ public class CrudController {
     @PostMapping("/admin/add")
     public String addUser(@RequestBody User user) {
         String[] roles = new String[user.getRoles().size()];
+        User addUser = new User(user.getName(),user.getLastName(),user.getAge(),user.getPassword(),user.getEmail());
         for (int i = 0; i < user.getRoles().size(); i++) {
             roles[i] = user.getRoles().get(i).getName();
         }
-        service.add(user, roles);
+        restTemplate.addUser(addUser, roles);
         return "add";
     }
 

@@ -121,15 +121,4 @@ $('#editSubmit').click(function () {
     $.each(userAfterSubmit.roles, function (key, value) {
         elementStrinTableByID.children(':eq(5)').append($("<span></span>", {class: 'pr-1', text: value}));
     });
-
-
-    // $('tbody th').filter(function() {
-    //     return $(this).text() == userAfterSubmit.id;
-    // }).parent().children(':eq(1)').text(userAfterSubmit.name);
-    //
-    // $('tbody th').filter(function() {
-    //     return $(this).text() == userAfterSubmit.id;
-    // }).parent().children(':eq(1)').text(userAfterSubmit.name);
-
-
 });

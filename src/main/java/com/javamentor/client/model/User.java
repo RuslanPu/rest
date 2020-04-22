@@ -111,6 +111,14 @@ public class User {
         this.password = password;
         this.email = email;
     }
+    public User(String name, String lastName, String password, String email, Integer age, List<Role> roles) {
+        this.name = name;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.age = age;
+        this.roles = roles;
+    }
 
     public void addRoles(Role role) {
         roles.add(role);

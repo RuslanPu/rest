@@ -59,7 +59,20 @@ public class RestTemplateImpl extends RestTemplate {
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.postForEntity(uri, jsonObject, String.class);
-        return "good";
+        return "edit";
+    }
+
+    public String addUser(User user, String[] roles) {
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.setCurrentSelectedRolesForEdit(roles);
+        jsonObject.setCurrentUserForEdit(user);
+
+        String uri = "http://localhost:8081/admin/addUser";
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.postForEntity(uri, jsonObject, String.class);
+        return "add";
+
     }
 
 }
