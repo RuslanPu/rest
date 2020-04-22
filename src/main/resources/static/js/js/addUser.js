@@ -32,7 +32,6 @@ $('.buttonAddUser').click(function () {
     var age = $(".add input[name='age']").val();
     var password = $(".add input[name='password']").val();
     var email = $(".add input[name='email']").val();
-
     $.ajax({
         url: '/admin/add',
         datatype: 'json',
