@@ -4,11 +4,9 @@ import com.javamentor.client.model.JsonObject;
 import com.javamentor.client.model.Role;
 import com.javamentor.client.model.User;
 import com.javamentor.client.service.RestTemplateImpl;
-import com.javamentor.client.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -17,8 +15,6 @@ import java.util.List;
 @RestController
 @RequestMapping()
 public class CrudController {
-    @Autowired
-    private UserService service;
 
     @Autowired
     private RestTemplateImpl restTemplate;
@@ -91,24 +87,6 @@ public class CrudController {
         }
         restTemplate.addUser(addUser, roles);
         return "add";
-    }
-
-
-
-    @PostMapping("/user/checkEmail")
-    public ResponseEntity<JsonObject> checkEmail(@RequestBody User user) {
-        String email = user.getEmail();
-        boolean unicEmail;
-        if (!service.unicEmail(email)) {
-            unicEmail = false;
-        } else {
-            unicEmail = true;
-        }
-
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.setUnicEmail(unicEmail);
-
-        return new ResponseEntity<JsonObject>(jsonObject, HttpStatus.OK);
     }
 
 
